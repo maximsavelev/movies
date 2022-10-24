@@ -25,4 +25,6 @@ public class Review extends BaseEntity{
         this.user = user;
         this.movie = movie;
     }
+
+
 }

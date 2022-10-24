@@ -22,9 +22,10 @@ public class ReviewService {
         return reviewRepository.findReviewByUserAndMovie(user, movie);
     }
 
-    public void saveReview(String text, User user, Movie movie) {
+    public Review saveReview(String text, User user, Movie movie) {
         Review review = new Review(text, user, movie);
         reviewRepository.save(review);
+        return review;
     }
 
     public Long deleteReviewByMovieAndUser(Movie movie, User user) {

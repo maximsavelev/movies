@@ -1,6 +1,8 @@
 package com.savelyev.movies.controller;
 
+import com.savelyev.movies.exception.NoSuchTokenException;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +39,6 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     private static final String TYPE = "type";
 
     @Override
-
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException exception,
             HttpHeaders headers,
@@ -91,6 +92,22 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
                 :status.getReasonPhrase();
         return new ResponseEntity<>(body, status);
     }
+
+
+   /* @ExceptionHandler({NoSuchTokenException.class})
+    public ResponseEntity<Object> handleNoSuchTokenException(
+            NoSuchTokenException exception, WebRequest request) {
+        ResponseStatus responseStatus =
+                exception.getClass().getAnnotation(ResponseStatus.class);
+        final HttpStatus status =
+                responseStatus!=null ? responseStatus.value():HttpStatus.INTERNAL_SERVER_ERROR;
+        final String localizedMessage = exception.getLocalizedMessage();
+        final String path = request.getDescription(false);
+        String message = (StringUtils.isNotEmpty(localizedMessage) ? localizedMessage:status.getReasonPhrase());
+        logger.error(String.format(ERROR_MESSAGE_FORMAT, message, path), exception);
+        return getExceptionResponseEntity(exception, HttpStatus.BAD_REQUEST, request, );
+    }*/
+
 
     private String getMessageForStatus(HttpStatus status) {
         switch (status) {

@@ -15,9 +15,10 @@ import org.springframework.stereotype.Service;
 public class MovieService {
     private final MovieRepository movieRepository;
 
+    private final String MOVIE_NOT_FOUND_MSG = "Movie not found";
 
     public Movie findMovieById(Long id) {
-        return movieRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return movieRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(MOVIE_NOT_FOUND_MSG));
 
     }
 

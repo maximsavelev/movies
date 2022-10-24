@@ -1,14 +1,18 @@
 package com.savelyev.movies.controller;
 
 import com.savelyev.movies.dto.PersonDTO;
+import com.savelyev.movies.model.User;
 import com.savelyev.movies.service.PersonService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +28,7 @@ public class PersonController {
     public PersonDTO findPersonById(@PathVariable Long id) {
         return controllerUtils.mapEntityToDto(personService.findPersonById(id), PersonDTO.class);
     }
+
 
 
 }
